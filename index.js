@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
   var address = socket.request.connection.remoteAddress;
   console.log(address);
   const ip = address.split(':').pop();
+  console.log(ip)
   const geo = geoip.lookup(ip);
   console.log(geo);
   socket.on('message', (message) => {
