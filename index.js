@@ -21,13 +21,8 @@ app.use('/', router);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  const address = socket.request.connection.remoteAddress;
-  const request = socket.request;
-  console.log(request);
-
-  console.log(address);
-  const ip = address.split(':').pop();
-  console.log(ip);
+  // const address = socket.request.connection.remoteAddress;
+  const ip = socket.request.headers['x-forwarded-for'];
   const geo = geoip.lookup(ip);
   console.log(geo);
   socket.on('message', (message) => {
