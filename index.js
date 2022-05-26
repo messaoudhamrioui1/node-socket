@@ -21,8 +21,8 @@ app.use('/', router);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  var address = socket.handshake.address;
-
+  var address = socket.request.connection.remoteAddress;
+  console.log(address);
   socket.on('message', (message) => {
     console.log(message);
     io.emit('message', `${socket.id.substr(0, 2)} said ${message}`);
