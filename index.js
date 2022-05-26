@@ -6,6 +6,14 @@ const io = require('socket.io')(httpServer, {
 var geoip = require('geoip-lite');
 
 const port = process.env.PORT || 3000;
+const router = express.Router();
+
+router.get('/', (req, res) => {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  console.log(ip); // ip address of the user
+});
+
+app.use('/', router);
 
 io.on('connection', (socket) => {
   console.log('a user connected');
