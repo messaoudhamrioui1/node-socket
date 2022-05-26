@@ -3,11 +3,16 @@ const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer, {
   cors: { origin: '*' },
 });
+var geoip = require('geoip-lite');
 
 const port = process.env.PORT || 3000;
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  var address = socket.handshake.address;
+  console.log('New connection from ' + address.address + ':' + address.port);
+  var geo = geoip.lookup(address);
+  console.log(geo);
 
   socket.on('message', (message) => {
     console.log(message);
