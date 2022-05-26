@@ -12,6 +12,9 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   console.log(ip); // ip address of the user
+
+  var geo = geoip.lookup(ip);
+  console.log(geo);
 });
 
 app.use('/', router);
@@ -19,9 +22,6 @@ app.use('/', router);
 io.on('connection', (socket) => {
   console.log('a user connected');
   var address = socket.handshake.address;
-  console.log('New connection from ' + address.address + ':' + address.port);
-  var geo = geoip.lookup(address);
-  console.log(geo);
 
   socket.on('message', (message) => {
     console.log(message);
