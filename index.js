@@ -22,6 +22,7 @@ io.on('connection', (socket) => {
   // const address = socket.request.connection.remoteAddress;
   const ip = socket.request.headers['x-forwarded-for'];
   const geo = geoip.lookup(ip);
+  console.log(geo);
   socket.on('message', (message) => {
     console.log(message);
     io.emit('message', `${socket.id.substr(0, 2)} said ${message}`);
