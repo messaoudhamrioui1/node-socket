@@ -1,13 +1,6 @@
 const app = require('express')();
 const express = require('express');
-import fetch from 'node-fetch';
 
-const response = await fetch(
-  'https://api.retail-vr.com/_plugin/kuzzle-app/auth/me'
-);
-const body = await response.text();
-
-console.log(body);
 const httpServer = require('http').createServer(app);
 const io = require('socket.io')(httpServer, {
   cors: { origin: '*' },
@@ -41,12 +34,4 @@ io.on('connection', (socket) => {
   });
 });
 
-httpServer.listen(port, () => {
-  setInterval(() => {
-    const response = await fetch(
-      'https://api.retail-vr.com/_plugin/kuzzle-app/auth/me'
-    );
-    const body = await response.text();
-    console.log(' --->', body);
-  }, 1000);
-});
+httpServer.listen(port, () => {})
